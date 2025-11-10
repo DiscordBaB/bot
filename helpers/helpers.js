@@ -18,6 +18,21 @@ function userCanUseAppeals(interaction) {
 
 /**
  *
+ *
+ * @param  {{member: GuildMember}} interaction
+ * @returns {boolean}
+ */
+function userCanUseBans(interaction) {
+    let member = interaction.member;
+    // @ts-ignore
+    return (member.roles.cache.some(role => role.name === "Mod") ||
+        member.roles.cache.some(role => role.name === 'Head Mod') ||
+        member.roles.cache.some(role => role.name === 'Developer') ||
+        member.roles.cache.some(role => role.name === 'Owner'));
+}
+
+/**
+ *
  * @param {{member: GuildMember}} interaction
  * @returns boolean
  */
@@ -107,4 +122,4 @@ async function fetchUserInfo(user_id, interaction) {
         })
 }
 
-module.exports = { userCanReload: userCanReload, userCanUseAppeals: userCanUseAppeals, formatRecords: formatRecords, fetchUserInfo: fetchUserInfo}
+module.exports = { userCanReload: userCanReload, userCanUseAppeals: userCanUseAppeals, userCanUseBans: userCanUseBans, formatRecords: formatRecords, fetchUserInfo: fetchUserInfo}
