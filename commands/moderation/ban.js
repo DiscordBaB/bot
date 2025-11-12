@@ -2,6 +2,7 @@ const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilde
 const { userCanUseBans, fetchUserInfo, checkForDuration} = require('../../helpers/helpers');
 const Appeal = require('../../models/appealModel')
 const BanCount = require('../../models/banCountModel')
+const Cache = require('../../models/userCacheModel')
 const { Canvas } = require('canvas');
 const Table2canvas = require('table2canvas');
 const fs = require('fs');
@@ -27,7 +28,9 @@ module.exports = {
                 try {
                     await checkForDuration(duration, interaction)
                 } catch (e) {
-                    if
+                    if (e instanceof DBABDurationInputError) {
+                        interaction.editReply({content: "You input an invalid duration.\nAcceptable durations are of the format [number][interval], e.g. 10s, 5m, 24h, 3d, 2w,\nor a string representing no expiration, lifetime/forever/perm(anent)"})
+                    }
                 }
             }
         } catch (error) {

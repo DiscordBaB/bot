@@ -18,15 +18,10 @@ module.exports = {
 
     async execute(interaction) {
         try {
-            let duration = interaction.options.getString('duration');
             if (userCanUseBans(interaction)) {
                 await interaction.deferReply({ ephemeral: true });
 
-                try {
-                    await checkForDuration(duration, interaction)
-                } catch (e) {
-                    if
-                }
+
             }
         } catch (error) {
             console.error(error);
