@@ -1,6 +1,8 @@
 const { SQLize, sqlize } = require('../databases/db')
 
-class UserCache extends Model {}
+class UserCache extends Model {
+
+}
 UserCache.init(
     {
         id: {
@@ -33,7 +35,8 @@ UserCache.init(
         sqlize,
         freezeTableName: true,
         tableName: 'user_cache',
-        modelName: 'userCache'
+        modelName: 'userCache',
+        timestamps: true
     }
 
 );

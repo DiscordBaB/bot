@@ -28,7 +28,8 @@ BanCount.init(
         sqlize,
         freezeTableName: true,
         tableName: 'bancounts',
-        modelName: 'BanCount'
+        modelName: 'BanCount',
+        timestamps: true
     }
 );
 (async () => {

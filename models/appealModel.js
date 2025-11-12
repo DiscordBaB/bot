@@ -34,6 +34,7 @@ Appeal.init(
         sqlize,
         freezeTableName: true,
         tableName: 'appeals',
+        timestamps: true,
         modelName: 'Appeal'
     }
 
