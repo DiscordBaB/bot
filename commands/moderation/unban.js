@@ -15,9 +15,7 @@ module.exports = {
         .addUserOption(option => option
             .setName('user')
             .setDescription('The user to ban'))
-        .addStringOption(option => option
-            .setName('duration')
-            .setDescription("How long to ban for (e.g., 10m, 2h, 3d, lifetime/forever)")),
+
     async execute(interaction) {
         try {
             let duration = interaction.options.getString('duration');
