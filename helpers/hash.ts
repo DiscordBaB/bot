@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as argon2 from "argon2";
 
 async function hash(password: string) {
