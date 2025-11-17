@@ -14,7 +14,7 @@ module.exports = {
         .setContexts(InteractionContextType.Guild)
         .addUserOption(option => option
             .setName('user')
-            .setDescription('The user to ban'))
+            .setDescription('The user to ban')),
 
     async execute(interaction) {
         try {

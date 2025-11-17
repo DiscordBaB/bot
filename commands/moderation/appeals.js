@@ -11,12 +11,12 @@ const fs = require('fs');
 module.exports = {
     category: 'moderation',
     data: new SlashCommandBuilder()
-        .setName('appeals')
+        .setName('appeal')
         .setDescription('Appeals commands [MODs]')
         .setContexts(InteractionContextType.Guild)
         .addSubcommand(subcommand =>
         subcommand
-            .setName('list')
+            .setName('list-all')
             .setDescription('List Appeals')
             .addIntegerOption(option =>
                 option
@@ -35,7 +35,7 @@ module.exports = {
     async execute(interaction) {
         try {
             if (userCanUseAppeals(interaction)) {
-                if (interaction.options.getSubcommand() === 'list') {
+                if (interaction.options.getSubcommand() === 'list-all') {
                     await interaction.deferReply()
 
                     const page = interaction.options.getInteger('page') || 0
@@ -88,16 +88,16 @@ module.exports = {
                     })
                     const buffer = table.canvas.toBuffer()
                     const attachment = new AttachmentBuilder(buffer)
-                        .setDescription("Use /appeals get <ID> to return a specific appeal.")
+                        .setDescription("Use '/appeal get <ID>' to return a specific appeal.")
                     interaction.editReply({files: [attachment]})
                 } else if (interaction.options.getSubcommand() === 'get') {
                     const appeal_id = interaction.options.getInteger('id')
                     try {
                         const appeal = await Appeal.findByPk(appeal_id)
-                        let appeal_userid,
-                            appeal_username,
-                            appeal_nickname,
-                            appeal_bancount,
+                        let appeal_userid,   // Appeal has userID baked in
+                            appeal_username, // Get using userID from userCache
+                            appeal_nickname, // Find using userID+serverID from userCache
+                            appeal_bancount, // Find using userID+serverID across to BanCountModel
                             appeal_reason,
                             appeal_disclaimer,
                             appeal_embed,
