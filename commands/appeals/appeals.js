@@ -14,21 +14,17 @@ module.exports = {
         .setName('appeal')
         .setDescription('Appeals commands [MODs]')
         .setContexts(InteractionContextType.Guild)
-        .addSubcommand(subcommand =>
-        subcommand
+        .addSubcommand(subcommand => subcommand
             .setName('list-all')
             .setDescription('List Appeals')
-            .addIntegerOption(option =>
-                option
+            .addIntegerOption(option => option
                     .setName('page')
                     .setNameLocalizations({'en-US': 'page', 'en-GB': 'page', 'es-ES': 'pagina', 'es-419': 'pagina', 'de': 'seite'})
                     .setDescription('What page to return. (Default: 1)')))
-        .addSubcommand(subcommand =>
-        subcommand
+        .addSubcommand(subcommand => subcommand
             .setName('get')
             .setDescription('Get a single appeal')
-            .addIntegerOption(option =>
-                option
+            .addIntegerOption(option => option
                     .setName('id')
                     .setDescription('The appeal ID to return.')
                     .setRequired(true))),
@@ -103,9 +99,11 @@ module.exports = {
                             appeal_embed,
                             appeal_avatar,
                             appeal_info;
-                        appeal_info = await fetchUserInfo(appeal)
+                        appeal_info = await fetchUserInfo(appeal) // Fetch user from discord cache, if not there, fetch from Cache Model
                             .then(user_obj => {
-
+                                appeal_username = user_obj.username
+                                appeal_avatar = user_obj.avatar
+                                appeal_
                             })
                         embed = new EmbedBuilder()
                             .setColor(0xffa500)
