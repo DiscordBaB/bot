@@ -14,17 +14,20 @@ module.exports = {
         .setDescription('Ban commands [MODs]')
         .setContexts(InteractionContextType.Guild)
         .addUserOption(option => option
-            .setName('user')
+            .setName('user') // Who
             .setDescription('The user to ban'))
         .addStringOption(option => option
-            .setName('duration')
-            .setDescription("How long to ban for (e.g., 10m, 2h, 3d, lifetime/forever)")),
+            .setName('duration') // How Long
+            .setDescription("How long to ban for (e.g., 10m, 2h, 3d, lifetime/forever)"))
+        .addStringOption(option => option
+            .setName('reason') // Why
+            .setDescription("The reason for the ban.")),
     async execute(interaction) {
         try {
             let duration = interaction.options.getString('duration');
             if (userCanUseBans(interaction)) {
                 await interaction.deferReply({ ephemeral: true });
-
+                // TODO: cache user if possible here
                 try {
                     await checkForDuration(duration, interaction)
                 } catch (e) {

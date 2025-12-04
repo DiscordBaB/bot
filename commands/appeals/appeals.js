@@ -9,7 +9,7 @@ const fs = require('fs');
 
 
 module.exports = {
-    category: 'moderation',
+    category: 'appeals',
     data: new SlashCommandBuilder()
         .setName('appeal')
         .setDescription('Appeals commands [MODs]')
