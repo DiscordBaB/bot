@@ -1,5 +1,5 @@
 const {GuildMember, Interaction} = require("discord.js");
-
+const userCache = require('../models/userCacheModel');
 
 /**
  *
@@ -58,8 +58,37 @@ async function formatRecords(records, interaction) {
         return false
     }
 }
+
+// Fetch user info from Discord or from Cache Model, else return minimal object
 async function fetchUserInfo(user_id, interaction) {
     let user_info;
+    // try getting from model first
+    
+    const cached_user = await userCache.findOne({
+        where: {
+            userID: user_id,
+        }
+    })
+    .then(result => {
+        return result
+    })
+    .catch(error => {
+        console.error('Error fetching from userCache:', error);
+        return null;
+    });
+    if (cached_user) {
+        user_info = {
+            username: cached_user.username,
+            avatar: cached_user.avatar,
+            discrim: cached_user.discriminator,
+            bot: cached_user.bot,
+            createdAt: cached_user.createdAt,
+            id: cached_user.userID,
+        }
+        return user_info
+    }
+    // else try fetching from discord
+    let user_obj;
     await interaction.client.users.fetch(user_id)
         .then(user => {
             user_obj = user
@@ -81,6 +110,7 @@ async function fetchUserInfo(user_id, interaction) {
             }
         })
 }
+
 async function checkForDuration(duration, interaction) {
     // Validate duration input: allow 'lifetime'/'forever' or number+unit (s,m,h,d,w,y)
     if (duration) {
