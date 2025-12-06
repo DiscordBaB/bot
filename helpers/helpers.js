@@ -1,5 +1,4 @@
-const {GuildMember, Interaction} = require("discord.js");
-const userCache = require('../models/userCacheModel');
+const userCache = require('../models/userCacheModel.ts');
 
 /**
  *
@@ -144,8 +143,7 @@ async function checkForDuration(duration, interaction) {
 }
 
 module.exports = {
-
     formatRecords: formatRecords,
     fetchUserInfo: fetchUserInfo,
-    checkForDuration: checkForDuration
-}
+    checkForDuration: checkForDuration,
+};

@@ -1,4 +1,5 @@
-const bot_owner_ids = require('/home/ken/.dbab-config/dbab.json').bot.owner_ids
+const cfg = require('/home/ken/.dbab-config/dbab.json');
+const bot_owner_ids = cfg.bot.owner_ids
 
 /**
  *
@@ -39,8 +40,9 @@ function userCanReload(interaction) {
     let member = interaction.member;
     return bot_owner_ids.includes(member.id.toString())
 }
+
 module.exports = {
-    userCanReload: userCanReload,
     userCanUseAppeals: userCanUseAppeals,
     userCanUseBans: userCanUseBans,
+    userCanReload: userCanReload
 }
