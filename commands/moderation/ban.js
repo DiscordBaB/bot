@@ -1,8 +1,9 @@
-const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilder, CommandInteraction, EmbedBuilder} = require('discord.js');
-const { userCanUseBans, fetchUserInfo, checkForDuration} = require('../../helpers/helpers');
-const Appeal = require('../../models/appealModel')
-const BanCount = require('../../models/banCountModel')
-const Cache = require('../../models/userCacheModel')
+const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilder, CommandInteraction, EmbedBuilder } = require('discord.js');
+const { fetchUserInfo, checkForDuration } = require('../../helpers/helpers.js');
+const { userCanUseBans } = require('../../helpers/perm_helper.js');
+const Appeal = require('../../models/appealModel.js');
+const BanCount = require('../../models/banCountModel.js');
+const Cache = require('../../models/userCacheModel.ts');
 const { Canvas } = require('canvas');
 const Table2canvas = require('table2canvas');
 const fs = require('fs');
@@ -29,10 +30,10 @@ module.exports = {
                 await interaction.deferReply({ ephemeral: true });
                 // TODO: cache user if possible here
                 try {
-                    await checkForDuration(duration, interaction)
+                    await checkForDuration(duration, interaction);
                 } catch (e) {
                     if (e instanceof DBABDurationInputError) {
-                        interaction.editReply({content: "You input an invalid duration.\nAcceptable durations are of the format [number][interval], e.g. 10s, 5m, 24h, 3d, 2w,\nor a string representing no expiration, lifetime/forever/perm(anent)"})
+                        interaction.editReply({ content: "You input an invalid duration.\nAcceptable durations are of the format [number][interval], e.g. 10s, 5m, 24h, 3d, 2w,\nor a string representing no expiration, lifetime/forever/perm(anent)" });
                     }
                 }
             }
@@ -40,6 +41,5 @@ module.exports = {
             console.error(error);
             try { await interaction.editReply({ content: 'An error occurred while processing the ban command.' }); } catch (e) { /* ignore */ }
         }
-    },
-
-};
+    }
+}

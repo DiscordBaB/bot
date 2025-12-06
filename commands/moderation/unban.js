@@ -1,11 +1,5 @@
-const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilder, CommandInteraction, EmbedBuilder} = require('discord.js');
-const { userCanUseBans, fetchUserInfo, checkForDuration} = require('../../helpers/helpers');
-const Appeal = require('../../models/appealModel')
-const BanCount = require('../../models/banCountModel')
-const { Canvas } = require('canvas');
-const Table2canvas = require('table2canvas');
-const fs = require('fs');
-
+const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilder, CommandInteraction, EmbedBuilder } = require('discord.js');
+const { userCanUseBans } = require('../../helpers/perm_helper.js');
 module.exports = {
     category: 'moderation',
     data: new SlashCommandBuilder()
@@ -15,7 +9,6 @@ module.exports = {
         .addUserOption(option => option
             .setName('user')
             .setDescription('The user to ban')),
-
     async execute(interaction) {
         try {
             if (userCanUseBans(interaction)) {
@@ -27,6 +20,5 @@ module.exports = {
             console.error(error);
             try { await interaction.editReply({ content: 'An error occurred while processing the ban command.' }); } catch (e) { /* ignore */ }
         }
-    },
-
+    }
 };

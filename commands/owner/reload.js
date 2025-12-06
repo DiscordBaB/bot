@@ -1,14 +1,13 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { userCanReload } = require('../../helpers/helpers')
+const { userCanReload } = require('../../helpers/perm_helper.js');
 module.exports = {
     category: 'owner',
     data: new SlashCommandBuilder()
         .setName('reload')
         .setDescription('Reloads a command.')
-        .addStringOption(option =>
-            option.setName('command')
-                .setDescription('The command to reload.')
-                .setRequired(true)),
+        .addStringOption(option => option.setName('command')
+            .setDescription('The command to reload.')
+            .setRequired(true)),
     async execute(interaction) {
         if (userCanReload(interaction)) {
             const commandName = interaction.options.getString('command', true).toLowerCase();
@@ -29,7 +28,7 @@ module.exports = {
                 await interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error.message}\``);
             }
         } else {
-            return interaction.reply("You don't have the permission to reload!")
+            return interaction.reply("You don't have the permission to reload!");
         }
-    },
+    }
 };
