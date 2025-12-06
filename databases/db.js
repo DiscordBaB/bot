@@ -1,17 +1,11 @@
-const SQLize = require('sequelize');
-const mysql_config = require('/home/ken/.dbab-config/dbab.json').mysql;
-const sqlize = new SQLize({
-    username: mysql_config.user,
-    password: mysql_config.password,
-    host: mysql_config.host,
-    port: mysql_config.port,
+const Sequelize = require('sequelize');
+const cfg = require('/home/ken/.dbab-config/dbab.json');
+// @ts-ignore
+const sequelize = new Sequelize(cfg.mysql.database, cfg.mysql.user, cfg.mysql.password,{
     dialect: 'mysql',
-    database: mysql_config.database,
     logging: console.log,
+    host: cfg.mysql.host,
+    port: cfg.mysql.port
 });
-sqlize.authenticate().then(() => {
-    console.log('Connection to DB has been established successfully.');
-}).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
-});
-module.exports = { sqlize, SQLize }
+export { sequelize }
+export { Sequelize }
