@@ -13,8 +13,6 @@ module.exports = {
         try {
             if (userCanUseBans(interaction)) {
                 await interaction.deferReply({ ephemeral: true });
-
-
             }
         } catch (error) {
             console.error(error);
