@@ -19,14 +19,16 @@ module.exports = {
 
             delete require.cache[require.resolve(`../${command.category}/${command.data.name}.js`)];
 
-            try {
-                const newCommand = require(`../${command.category}/${command.data.name}.js`);
-                await interaction.client.commands.set(newCommand.data.name, newCommand);
-                await interaction.reply(`Command \`${newCommand.data.name}\` was reloaded!`);
-            } catch (error) {
-                console.error(error);
-                await interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error.message}\``);
-            }
+            Promise.resolve()
+                .then(() => {
+                    const newCommand = require(`../${command.category}/${command.data.name}.js`);
+                    return Promise.resolve(interaction.client.commands.set(newCommand.data.name, newCommand))
+                        .then(() => interaction.reply(`Command \`${newCommand.data.name}\` was reloaded!`));
+                })
+                .catch((error) => {
+                    console.error(error);
+                    return interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error.message}\``);
+                });
         } else {
             return interaction.reply("You don't have the permission to reload!");
         }
