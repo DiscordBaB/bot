@@ -1,5 +1,7 @@
 const { REST, Routes } = require('discord.js');
-const cfg = require('/home/ken/.dbab-config/dbab.json');
+const os = require('os')
+home_dir = os.homedir();
+const cfg = require(`${home_dir}/.dbab-config/dbab.json`);
 const clientId = cfg.bot.clientId;
 const guildIds = cfg.bot.guildIds;
 const token = cfg.bot.token;
