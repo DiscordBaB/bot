@@ -1,7 +1,7 @@
 {
   "name": "dbab-bot",
   "version": "0.0.1",
-  "description": "developer ban appeal bot",
+  "description": "Discord Ban A Bot",
   "license": "ISC",
   "author": "IotaSpencer",
   "type": "commonjs",
