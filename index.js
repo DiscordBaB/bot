@@ -1,6 +1,8 @@
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, Collection} = require('discord.js');
-const token = require('/home/ken/.dbab-config/dbab.json').bot.token;
+const os = require('os')
+home_dir = os.homedir();
+const token = require(`${home_dir}/.dbab-config/dbab.json`).bot.token;
 const fs = require('node:fs');
 const path = require('node:path');
 // Create a new client instance
