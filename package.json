@@ -20,6 +20,7 @@
   "devDependencies": {
     "@eslint/js": "^9.34.0",
     "eslint": "^9.34.0",
-    "flow-bin": "^0.280.0"
+    "flow-bin": "^0.280.0",
+    "typescript": "^5.9.3"
   }
 }
