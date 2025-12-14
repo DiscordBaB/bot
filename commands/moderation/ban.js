@@ -1,8 +1,8 @@
 const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilder, CommandInteraction, EmbedBuilder } = require('discord.js');
 const { fetchUserInfo, checkForDuration } = require('../../helpers/helpers.js');
 const { userCanUseBans } = require('../../helpers/perm_helper.js');
-const Appeal = require('../../models/appealModel.js');
-const BanCount = require('../../models/banCountModel.js');
+const Appeal = require('../../models/appealModel.mjs');
+const BanCount = require('../../models/banCountModel.mjs');
 const Cache = require('../../models/userCacheModel.ts');
 const { Canvas } = require('canvas');
 const Table2canvas = require('table2canvas');

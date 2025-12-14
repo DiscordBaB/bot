@@ -2,8 +2,8 @@ const { SlashCommandBuilder, InteractionContextType, codeBlock, AttachmentBuilde
 const { userCanUseAppeals } = require('../../helpers/perm_helper.js');
 const { formatRecords } = require('../../helpers/helpers.js');
 const { fetchUserInfo } = require('../../helpers/helpers.js');
-const Appeal = require('../../models/appealModel.js');
-const BanCount = require('../../models/banCountModel.js');
+const Appeal = require('../../models/appealModel.mjs');
+const BanCount = require('../../models/banCountModel.mjs');
 const { Canvas } = require('canvas');
 const Table2Canvas = require('table2canvas');
 const fs = require('fs');
