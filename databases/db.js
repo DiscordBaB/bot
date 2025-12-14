@@ -9,5 +9,4 @@ const sequelize = new Sequelize(cfg.mysql.database, cfg.mysql.user, cfg.mysql.pa
     host: cfg.mysql.host,
     port: cfg.mysql.port
 });
-export { sequelize }
-export { Sequelize }
+module.exports = { sequelize: sequelize, Sequelize: Sequelize }
