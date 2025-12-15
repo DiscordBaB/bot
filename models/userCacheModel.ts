@@ -1,3 +1,5 @@
+import { Interaction } from "discord.js";
+
 const {Sequelize} = require('sequelize')
 const { Model, DataTypes } = require('sequelize');
 const { sequelize } = require('../databases/db.js');
@@ -28,6 +30,24 @@ class UserCache extends Model<UserCacheAttributes, UserCacheCreationAttributes>
   public bot!: boolean | null;
   public system!: boolean | null;
   public nicknames!: any | null;
+
+  async cacheUser(interaction: Interaction) {
+    let user;
+    user = interaction.user;
+    if (user.bot == false && user.system == false) {
+      await UserCache.upsert({
+        id: user.id,
+        createdAt: user.createdAt,
+        bannerURL: user.bannerURL,
+        avatarDecorationURL: user.avatarDecorationURL,
+        avatarURL: user.displayAvatarURL({ extension: 'png', size: 1024 }),
+        username: user.username,
+        bot: user.bot,
+        system: user.system,
+        nicknames: {}
+      });
+    };
+  }
 }
 
 UserCache.init(
