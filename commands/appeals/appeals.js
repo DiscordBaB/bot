@@ -29,7 +29,16 @@ module.exports = {
             .addIntegerOption(option => option
                 .setName('id')
                 .setDescription('The appeal ID to return.')
-                .setRequired(true))),
+                .setRequired(true)
+        ))
+        .addSubcommand(subcommand => subcommand
+            .setName('del')
+            .setDescription('Delete a single appeal')
+            .addIntegerOption(option => option
+                .setName('id')
+                .setDescription('The appeal ID to delete.')
+                .setRequired(true)
+        )),
     async execute(interaction) {
         try {
             if (userCanUseAppeals(interaction)) {
@@ -110,6 +119,21 @@ module.exports = {
                                 { name: 'UserName', value: '' }
                             );
                     } catch {
+                    }
+
+                } else if (interaction.options.getSubcommand() === 'del') {
+                    // Delete appeal
+                    const appeal_id = interaction.options.getInteger('id');
+                    try {
+                        const deletedCount = await Appeal.destroy({ where: { id: appeal_id, serverID: interaction.guildId } });
+                        if (deletedCount === 0) {
+                            interaction.editReply({ content: `No appeal found with ID ${appeal_id}.` });
+                        } else {
+                            interaction.editReply({ content: `Appeal with ID ${appeal_id} has been deleted.` });
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        interaction.editReply({ content: 'An error occurred while deleting the appeal.' });
                     }
                 }
             }
