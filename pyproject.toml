@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dbab-bot"
+version = "0.0.1"
+description = "Discord Ban A Bot - Ban management bot for Discord"
+license = {text = "ISC"}
+authors = [
+    {name = "IotaSpencer"}
+]
+requires-python = ">=3.9"
+dependencies = [
+    "discord.py==2.3.2",
+    "SQLAlchemy==2.0.23",
+    "mysql-connector-python==8.2.0",
+    "argon2-cffi==23.1.0",
+    "Pillow==10.1.0",
+    "python-dotenv==1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "mypy>=1.0",
+]
